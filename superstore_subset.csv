@@ -1,0 +1,11 @@
+Row ID,Order ID,Order Date,Ship Date,Ship Mode,Customer ID,Customer Name,Segment,Country,City,State,Postal Code,Region,Product ID,Category,Sub-Category,Product Name,Sales,Quantity,Discount,Profit
+1,CA-2016-152156,11/8/16,11/11/16,Second Class,CG-12520,Claire Gute,Consumer,United States,Henderson,Kentucky,42420,South,FUR-BO-10001798,Furniture,Bookcases,Bush Somerset Collection Bookcase,261.96,2,0,41.91
+2,CA-2016-152156,11/8/16,11/11/16,Standard Class,CG-12520,Claire Gute,Consumer,United States,Henderson,Kentucky,42420,South,FUR-CH-10000454,Furniture,Chairs,Hon Deluxe Fabric Upholstered Stacking Chairs,731.94,3,0,219.58
+3,CA-2016-138688,6/12/16,6/16/16,Standard Class,DV-13045,Darrin Van Huff,Corporate,United States,Los Angeles,California,90036,West,OFF-LA-10000240,Office Supplies,Labels,Avery 508,14.62,2,0,6.87
+4,US-2015-108966,10/11/15,10/18/15,Standard Class,SO-20335,Sean O'Donnell,Consumer,United States,Fort Lauderdale,Florida,33311,South,FUR-TA-10000577,Furniture,Tables,Bretford Rectangular Conference Table,957.58,5,0.45,-383.03
+5,CA-2014-115812,6/9/14,6/14/14,First Class,BH-11710,Brosina Hoffman,Consumer,United States,Los Angeles,California,90032,West,OFF-ST-10000760,Office Supplies,Storage,Eldon Fold 'N Roll Cart System,22.37,2,0,2.52
+6,CA-2014-115812,6/9/14,6/14/14,Standard Class,BH-11710,Brosina Hoffman,Consumer,United States,Los Angeles,California,90032,West,OFF-AR-10002833,Office Supplies,Art,Newell 322,7.28,4,0,1.97
+7,CA-2014-115812,6/9/14,6/14/14,Standard Class,BH-11710,Brosina Hoffman,Consumer,United States,Los Angeles,California,90032,West,OFF-AP-10002892,Office Supplies,Appliances,Acco 7-Outlet Surge Protector,114.90,5,0,34.47
+8,CA-2017-114412,4/15/17,4/20/17,Standard Class,AA-10480,Andrew Allen,Consumer,United States,San Francisco,California,94122,West,TEC-PH-10002275,Technology,Phones,iPhone 7,799.98,2,0,239.99
+9,CA-2017-114412,4/15/17,4/20/17,Second Class,AA-10480,Andrew Allen,Consumer,United States,San Francisco,California,94122,West,TEC-AC-10003033,Technology,Accessories,Logitech Wireless Mouse,25.99,1,0,5.20
+10,CA-2015-104545,9/17/15,9/21/15,Standard Class,IM-15070,Irene Maddox,Consumer,United States,New York,New York,10024,East,FUR-CH-10001146,Furniture,Chairs,Global Leather Executive Chair,301.96,2,0,90.59
