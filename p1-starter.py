@@ -49,13 +49,35 @@ def calc_avg_profit_by_region(data):
     return averages
 
 
+def calc_category_totals(data):
+    category_totals = {}
+
+    for row in data:
+        if row["Ship Mode"] == "Standard Class":
+            category = row["Category"]
+            sales = float(row["Sales"])
+            profit = float(row["Profit"])
+
+            if category not in category_totals:
+                category_totals[category] = [0, 0]
+
+            category_totals[category][0] += sales
+            category_totals[category][1] += profit
+
+    return category_totals
+
+
 def main():
     data = read_data("SampleSuperstore.csv")
 
     avg_profit = calc_avg_profit_by_region(data)
+    category_totals = calc_category_totals(data)
 
     print("Average Profit by Region (Sales > 100):")
     print(avg_profit)
+
+    print("\nCategory Totals (Standard Class Only):")
+    print(category_totals)
 
 
 if __name__ == "__main__":
