@@ -13,94 +13,169 @@ import csv
 import unittest
 
 
+# -----------------------
+# READ DATA
+# -----------------------
+
 def read_data(filename):
     data = []
+
     with open(filename, newline='', encoding='utf-8-sig') as file:
         reader = csv.DictReader(file)
         for row in reader:
             data.append(row)
+
     return data
 
-# Calculates average profit by region for rows where Sales > 100.
-# Uses Region, Sales, and Profit columns.
-def calc_avg_profit_by_region(data):
-    region_totals = {}
-    region_counts = {}
+
+# -----------------------
+# DEVIN FUNCTIONS
+# -----------------------
+
+# Calculates average profit per category where Sales > 100
+# Uses Category, Sales, Profit
+def calc_avg_profit_by_category_high_sales(data):
+    totals = {}
+    counts = {}
 
     for row in data:
-        sales = float(row["Sales"])
-        profit = float(row["Profit"])
-        region = row["Region"]
+        if float(row["Sales"]) > 100:
+            category = row["Category"]
+            profit = float(row["Profit"])
 
-        if sales > 100:
-            if region not in region_totals:
-                region_totals[region] = 0
-                region_counts[region] = 0
+            if category not in totals:
+                totals[category] = 0
+                counts[category] = 0
 
-            region_totals[region] += profit
-            region_counts[region] += 1
+            totals[category] += profit
+            counts[category] += 1
 
     averages = {}
 
-    for region in region_totals:
-        count = region_counts[region]
-        if count > 0:
-            averages[region] = region_totals[region] / count
-        else:
-            averages[region] = 0
+    for category in totals:
+        averages[category] = totals[category] / counts[category]
 
     return averages
 
-# Calculates total sales and total profit by category
-# for rows where Ship Mode is "Standard Class".
-# Uses Category, Ship Mode, Sales, and Profit columns.
-def calc_category_totals(data):
-    category_totals = {}
+
+# Calculates total sales per region where Ship Mode is Standard Class
+# Uses Region, Ship Mode, Sales
+def calc_total_sales_by_region_standard_ship(data):
+    totals = {}
 
     for row in data:
         if row["Ship Mode"] == "Standard Class":
-            category = row["Category"]
+            region = row["Region"]
             sales = float(row["Sales"])
+
+            if region not in totals:
+                totals[region] = 0
+
+            totals[region] += sales
+
+    return totals
+
+
+# -----------------------
+# ALYSSA FUNCTIONS
+# -----------------------
+
+# Calculates average discount per category where Profit > 0
+# Uses Category, Discount, Profit
+def calc_avg_discount_by_category_profitable(data):
+    totals = {}
+    counts = {}
+
+    for row in data:
+        if float(row["Profit"]) > 0:
+            category = row["Category"]
+            discount = float(row["Discount"])
+
+            if category not in totals:
+                totals[category] = 0
+                counts[category] = 0
+
+            totals[category] += discount
+            counts[category] += 1
+
+    averages = {}
+
+    for category in totals:
+        averages[category] = totals[category] / counts[category]
+
+    return averages
+
+
+# Calculates total profit per region where Discount > 0.2
+# Uses Region, Discount, Profit
+def calc_total_profit_by_region_high_discount(data):
+    totals = {}
+
+    for row in data:
+        if float(row["Discount"]) > 0.2:
+            region = row["Region"]
             profit = float(row["Profit"])
 
-            if category not in category_totals:
-                category_totals[category] = [0, 0]
+            if region not in totals:
+                totals[region] = 0
 
-            category_totals[category][0] += sales
-            category_totals[category][1] += profit
+            totals[region] += profit
 
-    return category_totals
+    return totals
 
 
-def write_output(avg_profit, category_totals, filename):
+# -----------------------
+# WRITE OUTPUT
+# -----------------------
+
+def write_output(avg_profit_cat, total_sales_reg,
+                 avg_discount_cat, total_profit_reg, filename):
+
     with open(filename, "w", newline="") as file:
         writer = csv.writer(file)
 
-        writer.writerow(["Average Profit by Region (Sales > 100)"])
-        writer.writerow(["Region", "Average Profit"])
-
-        for region in avg_profit:
-            writer.writerow([region, avg_profit[region]])
+        writer.writerow(["Average Profit by Category (Sales > 100)"])
+        for key in avg_profit_cat:
+            writer.writerow([key, avg_profit_cat[key]])
 
         writer.writerow([])
-        writer.writerow(["Category Totals (Standard Class Only)"])
-        writer.writerow(["Category", "Total Sales", "Total Profit"])
 
-        for category in category_totals:
-            writer.writerow([
-                category,
-                category_totals[category][0],
-                category_totals[category][1]
-            ])
+        writer.writerow(["Total Sales by Region (Standard Class)"])
+        for key in total_sales_reg:
+            writer.writerow([key, total_sales_reg[key]])
 
+        writer.writerow([])
+
+        writer.writerow(["Average Discount by Category (Profit > 0)"])
+        for key in avg_discount_cat:
+            writer.writerow([key, avg_discount_cat[key]])
+
+        writer.writerow([])
+
+        writer.writerow(["Total Profit by Region (Discount > 0.2)"])
+        for key in total_profit_reg:
+            writer.writerow([key, total_profit_reg[key]])
+
+
+# -----------------------
+# MAIN
+# -----------------------
 
 def main():
     data = read_data("superstore_subset.csv")
 
-    avg_profit = calc_avg_profit_by_region(data)
-    category_totals = calc_category_totals(data)
+    avg_profit_category = calc_avg_profit_by_category_high_sales(data)
+    total_sales_region = calc_total_sales_by_region_standard_ship(data)
+    avg_discount_category = calc_avg_discount_by_category_profitable(data)
+    total_profit_region = calc_total_profit_by_region_high_discount(data)
 
-    write_output(avg_profit, category_totals, "output.csv")
+    write_output(
+        avg_profit_category,
+        total_sales_region,
+        avg_discount_category,
+        total_profit_region,
+        "output.csv"
+    )
 
     print("Results written to output.csv")
 
@@ -111,49 +186,53 @@ def main():
 
 class TestProject1(unittest.TestCase):
 
-    def test_avg_profit_normal(self):
+    def test_avg_profit_by_category(self):
         test_data = [
-            {"Region": "West", "Sales": "200", "Profit": "50"},
-            {"Region": "West", "Sales": "300", "Profit": "70"},
-            {"Region": "East", "Sales": "150", "Profit": "30"}
+            {"Category": "Furniture", "Sales": "200", "Profit": "50"},
+            {"Category": "Furniture", "Sales": "300", "Profit": "70"},
+            {"Category": "Technology", "Sales": "50", "Profit": "30"}
         ]
 
-        result = calc_avg_profit_by_region(test_data)
+        result = calc_avg_profit_by_category_high_sales(test_data)
 
-        self.assertAlmostEqual(result["West"], 60)
-        self.assertAlmostEqual(result["East"], 30)
+        self.assertAlmostEqual(result["Furniture"], 60)
+        self.assertNotIn("Technology", result)
 
-    def test_avg_profit_edge(self):
+    def test_total_sales_by_region(self):
         test_data = [
-            {"Region": "West", "Sales": "50", "Profit": "20"}
+            {"Region": "West", "Ship Mode": "Standard Class", "Sales": "200"},
+            {"Region": "West", "Ship Mode": "Second Class", "Sales": "100"},
+            {"Region": "East", "Ship Mode": "Standard Class", "Sales": "300"}
         ]
 
-        result = calc_avg_profit_by_region(test_data)
+        result = calc_total_sales_by_region_standard_ship(test_data)
 
-        self.assertEqual(result, {})
+        self.assertEqual(result["West"], 200)
+        self.assertEqual(result["East"], 300)
 
-    def test_category_totals_normal(self):
+    def test_avg_discount_by_category(self):
         test_data = [
-            {"Category": "Furniture", "Ship Mode": "Standard Class", "Sales": "200", "Profit": "50"},
-            {"Category": "Furniture", "Ship Mode": "Standard Class", "Sales": "300", "Profit": "70"},
-            {"Category": "Technology", "Ship Mode": "Standard Class", "Sales": "150", "Profit": "30"}
+            {"Category": "Furniture", "Discount": "0.1", "Profit": "50"},
+            {"Category": "Furniture", "Discount": "0.2", "Profit": "60"},
+            {"Category": "Technology", "Discount": "0.3", "Profit": "-10"}
         ]
 
-        result = calc_category_totals(test_data)
+        result = calc_avg_discount_by_category_profitable(test_data)
 
-        self.assertEqual(result["Furniture"][0], 500)
-        self.assertEqual(result["Furniture"][1], 120)
-        self.assertEqual(result["Technology"][0], 150)
-        self.assertEqual(result["Technology"][1], 30)
+        self.assertAlmostEqual(result["Furniture"], 0.15)
+        self.assertNotIn("Technology", result)
 
-    def test_category_totals_edge(self):
+    def test_total_profit_by_region(self):
         test_data = [
-            {"Category": "Furniture", "Ship Mode": "Second Class", "Sales": "200", "Profit": "50"}
+            {"Region": "West", "Discount": "0.3", "Profit": "50"},
+            {"Region": "West", "Discount": "0.1", "Profit": "30"},
+            {"Region": "East", "Discount": "0.25", "Profit": "40"}
         ]
 
-        result = calc_category_totals(test_data)
+        result = calc_total_profit_by_region_high_discount(test_data)
 
-        self.assertEqual(result, {})
+        self.assertEqual(result["West"], 50)
+        self.assertEqual(result["East"], 40)
 
 
 if __name__ == "__main__":
