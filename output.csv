@@ -1,0 +1,11 @@
+Average Profit by Region (Sales > 100)
+Region,Average Profit
+South,-40.51333333333332
+West,137.23000000000002
+East,90.59
+
+Category Totals (Standard Class Only)
+Category,Total Sales,Total Profit
+Furniture,1991.48,-72.85999999999996
+Office Supplies,136.8,43.31
+Technology,799.98,239.99

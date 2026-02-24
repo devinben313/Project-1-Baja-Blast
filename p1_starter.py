@@ -91,7 +91,7 @@ def write_output(avg_profit, category_totals, filename):
 
 
 def main():
-    data = read_data("SampleSuperstore.csv")
+    data = read_data("superstore_subset.csv")
 
     avg_profit = calc_avg_profit_by_region(data)
     category_totals = calc_category_totals(data)
