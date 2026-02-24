@@ -1,12 +1,12 @@
-# Name:
-# Student ID:
-# Email:
-# Who or what you worked with on this homework (including generative AI like ChatGPT):
-# If you worked with generative AI also add a statement for how you used it.
+# Name:Devin Benson & Alyssa Davis
+# Student ID:80095600 & 80936839
+# Email: devinben@umich.edu & aljdavis@umich.edu
+# Who or what you worked with on this homework (including generative AI like ChatGPT): Worked together as a team to write the code and unit tests, and used ChatGPT for debugging assistance and understanding Git workflow.
+# If you worked with generative AI also add a statement for how you used it. Used ChatGPT for debugging assistance and understanding Git workflow.
 # e.g.:
 # Asked ChatGPT hints for debugging and suggesting the general structure of the code
 # Did your use of GenAI on this assignment align with your goals and guidelines in 
-#    your Gen AI contract? If not, why?
+#    your Gen AI contract? If not, why?Use of GenAI aligned with my GenAI contract.
 
 import csv
 import unittest
