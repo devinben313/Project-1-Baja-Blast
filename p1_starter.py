@@ -7,6 +7,7 @@
 # Asked ChatGPT hints for debugging and suggesting the general structure of the code
 # Did your use of GenAI on this assignment align with your goals and guidelines in 
 #    your Gen AI contract? If not, why?Use of GenAI aligned with my GenAI contract.
+# Dataset used: superstore_subset.csv (derived from SampleSuperstore dataset)
 
 import csv
 import unittest
@@ -20,7 +21,8 @@ def read_data(filename):
             data.append(row)
     return data
 
-
+# Calculates average profit by region for rows where Sales > 100.
+# Uses Region, Sales, and Profit columns.
 def calc_avg_profit_by_region(data):
     region_totals = {}
     region_counts = {}
@@ -49,7 +51,9 @@ def calc_avg_profit_by_region(data):
 
     return averages
 
-
+# Calculates total sales and total profit by category
+# for rows where Ship Mode is "Standard Class".
+# Uses Category, Ship Mode, Sales, and Profit columns.
 def calc_category_totals(data):
     category_totals = {}
 
